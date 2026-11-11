@@ -1,0 +1,1385 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <meta
+    name="description"
+    content="CommunityCare — Community Complaint Management System"
+  />
+  <title>CommunityCare | CCMS</title>
+
+  <link rel="stylesheet" href="/style.css" />
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --surface: #ffffff;
+      --background: #f5f7fb;
+      --success: #15803d;
+      --danger: #dc2626;
+      --radius: 16px;
+      --shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--background);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .eyebrow {
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 1.45rem;
+      font-weight: 900;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.24);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 43px;
+      padding: 10px 17px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      font-weight: 700;
+      text-align: center;
+      transition: background 0.18s, transform 0.18s;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      border-color: var(--border);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .btn-danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .field label,
+    .field-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 11px 13px;
+      border: 1px solid #d8e0ec;
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .auth-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.85fr);
+      min-height: 100vh;
+      background: #fff;
+    }
+
+    .auth-hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 36px;
+      padding: clamp(28px, 5vw, 70px);
+      color: #fff;
+      background:
+        radial-gradient(circle at 15% 85%, rgba(96, 165, 250, 0.4), transparent 35%),
+        linear-gradient(145deg, #1d4ed8, #1e40af 60%, #172554);
+    }
+
+    .auth-hero .brand {
+      color: #fff;
+    }
+
+    .auth-hero .brand small {
+      color: #dbeafe;
+    }
+
+    .hero-copy {
+      max-width: 570px;
+      margin: auto 0;
+    }
+
+    .hero-copy h1 {
+      margin: 12px 0 18px;
+      font-size: clamp(2.2rem, 4.5vw, 4.1rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy p {
+      max-width: 490px;
+      color: #dbeafe;
+      font-size: 1.05rem;
+    }
+
+    .hero-features {
+      display: grid;
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #eff6ff;
+    }
+
+    .feature-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-footer {
+      color: #bfdbfe;
+      font-size: 0.8rem;
+    }
+
+    .auth-side {
+      display: grid;
+      align-content: center;
+      padding: clamp(24px, 5vw, 72px);
+      background: #fff;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 440px;
+      margin: auto;
+    }
+
+    .auth-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.9rem;
+      letter-spacing: -0.035em;
+    }
+
+    .auth-card .muted {
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    .auth-switch {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .auth-switch button,
+    .text-button {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .checkbox-line {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 8px 0 18px;
+      color: var(--muted);
+      font-size: 0.87rem;
+    }
+
+    .checkbox-line input {
+      width: 16px;
+      height: 16px;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+      color: #94a3b8;
+      font-size: 0.8rem;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      content: "";
+    }
+
+    
+.social-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 11px;
+  margin-top: 18px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.13);
+}
+
+.facebook-btn {
+  border: 1px solid #4267b2;
+  background: #5278ed;
+  color: #ffffff;
+}
+
+.google-btn {
+  border: 1px solid #a8a8a8;
+  background: #ffffff;
+  color: #444444;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 24px 16px;
+      border-right: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .sidebar .brand {
+      padding: 0 8px 25px;
+    }
+
+    .nav-label {
+      margin: 16px 12px 8px;
+      color: #94a3b8;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      display: grid;
+      gap: 6px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 13px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: #475569;
+      font-weight: 650;
+      text-align: left;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .nav-icon {
+      display: inline-grid;
+      width: 24px;
+      place-items: center;
+      font-size: 1.05rem;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 14px 8px 0;
+    }
+
+    .user-mini {
+      overflow-wrap: anywhere;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+    }
+
+    .user-mini strong {
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .user-mini small {
+      color: var(--muted);
+    }
+
+    .main-content {
+      min-width: 0;
+      padding: 28px clamp(16px, 3vw, 38px) 45px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .topbar-heading h1 {
+      margin: 3px 0;
+      font-size: clamp(1.55rem, 2.4vw, 2rem);
+      letter-spacing: -0.035em;
+    }
+
+    .topbar-heading > .muted {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel {
+      margin-bottom: 24px;
+      padding: clamp(18px, 2.5vw, 28px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .panel-heading h2 {
+      margin: 0 0 5px;
+      font-size: 1.18rem;
+    }
+
+    .panel-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.025);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 650;
+    }
+
+    .stat-value {
+      margin-top: 8px;
+      font-size: 2rem;
+      font-weight: 850;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-caption {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.77rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 16px;
+    }
+
+    .span-2 {
+      grid-column: 1 / -1;
+    }
+
+    .camera-box {
+      overflow: hidden;
+      border: 1px dashed #b8c7dc;
+      border-radius: 13px;
+      background: #f8fafc;
+    }
+
+    .camera-stage {
+      display: grid;
+      min-height: 210px;
+      place-items: center;
+      padding: 12px;
+    }
+
+    #evidenceCamera,
+    #evidencePreview {
+      display: block;
+      width: 100%;
+      max-height: 430px;
+      border-radius: 9px;
+      object-fit: contain;
+      background: #0f172a;
+    }
+
+    #evidenceCanvas {
+      display: none;
+    }
+
+    .camera-placeholder {
+      padding: 22px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .camera-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+
+    #cameraMessage {
+      margin: 0;
+      padding: 0 12px 12px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .notice {
+      padding: 13px 15px;
+      border: 1px solid #bfdbfe;
+      border-radius: 11px;
+      background: #eff6ff;
+      color: #1e40af;
+      font-size: 0.86rem;
+    }
+
+    .list-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .list-toolbar input,
+    .list-toolbar select {
+      min-height: 43px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .list-toolbar input {
+      flex: 1 1 220px;
+    }
+
+    .list-toolbar select {
+      flex: 0 1 190px;
+    }
+
+    #complaintList {
+      display: grid;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .empty-state {
+      padding: 35px 18px;
+      border: 1px dashed var(--border);
+      border-radius: 13px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    #message {
+      position: fixed;
+      z-index: 1000;
+      right: 22px;
+      bottom: 22px;
+      max-width: min(420px, calc(100vw - 32px));
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      overflow-wrap: anywhere;
+    }
+
+    #message:empty {
+      display: none;
+    }
+
+    .footer-note {
+      padding: 12px 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 1050px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .app-shell {
+        grid-template-columns: 220px minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .auth-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-hero {
+        min-height: 270px;
+        padding: 25px;
+      }
+
+      .hero-copy {
+        margin: 30px 0;
+      }
+
+      .hero-copy h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-features,
+      .hero-footer {
+        display: none;
+      }
+
+      .auth-side {
+        padding: 28px 20px;
+      }
+
+      .app-shell {
+        display: block;
+      }
+
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 12px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .sidebar .brand {
+        padding: 4px 8px 12px;
+      }
+
+      .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        gap: 6px;
+        padding-bottom: 4px;
+      }
+
+      .nav-label,
+      .sidebar-bottom {
+        display: none;
+      }
+
+      .nav-link {
+        flex: 0 0 auto;
+        width: auto;
+        padding: 10px 12px;
+        white-space: nowrap;
+      }
+
+      .main-content {
+        padding: 20px 14px 32px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .topbar-actions {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .stats-grid {
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-value {
+        font-size: 1.7rem;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .span-2 {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+      }
+
+      .topbar-actions {
+        justify-content: flex-start;
+      }
+
+      .social-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- AUTHENTICATION -->
+  <section id="authPanel" class="auth-layout">
+    <aside class="auth-hero">
+      <a class="brand" href="/" aria-label="CommunityCare home">
+        <span class="brand-mark">C</span>
+        <span>
+          CommunityCare
+          <small>Community Complaint Management System</small>
+        </span>
+      </a>
+           
+      
+      <div class="hero-copy">
+        <span class="eyebrow" style="color:#bfdbfe">Your community. Your voice.</span>
+        <h1>Let's make our community better, together.</h1>
+        <p>
+          Report community concerns, submit photo evidence, and follow the
+          progress of your complaints in one convenient place.
+        </p>
+
+        <div class="hero-features">
+          <div class="hero-feature">
+            <span class="feature-icon">✓</span>
+            <span>Submit and monitor community complaints</span>
+          </div>
+          <div class="hero-feature">
+            <span class="feature-icon">⌖</span>
+            <span>Location verification for reports</span>
+          </div>
+          <div class="hero-feature">
+            <span class="feature-icon">↗</span>
+            <span>Track complaint status and updates</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        CommunityCare CCMS · Poblacion, Cajidiocan
+      </div>
+    </aside>
+
+    <main class="auth-side">
+      <div class="auth-card">
+        <!-- LOGIN -->
+        <form id="loginForm">
+          <span class="eyebrow">Welcome back</span>
+          <h2>Sign in to your account</h2>
+          <p class="muted">Enter your account details to continue.</p>
+
+          <div class="field">
+            <label for="loginEmail">Email address</label>
+            <input
+              id="loginEmail"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <input
+              id="loginPassword"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+
+          <div class="checkbox-line">
+            <input id="rememberMe" type="checkbox" />
+            <label for="rememberMe">Remember me</label>
+            <span style="flex:1"></span>
+            <button id="forgotPasswordLink" class="text-button" type="button">
+              Forgot password?
+            </button>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">
+            Sign in
+          </button>
+
+
+<p class="auth-switch">
+  Don't have an account?
+  <button id="showRegister" type="button">Create an account</button>
+</p>
+</form>
+
+
+        <!-- REGISTRATION -->
+        <form id="registerForm" hidden>
+          <span class="eyebrow">Join your community</span>
+          <h2>Create an account</h2>
+          <p class="muted">Register to submit and track community complaints.</p>
+
+          <div class="field">
+            <label for="registerName">Full name</label>
+            <input
+              id="registerName"
+              type="text"
+              name="name"
+              placeholder="Enter your full name"
+              autocomplete="name"
+              minlength="2"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="registerEmail">Email address</label>
+            <input
+              id="registerEmail"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label for="registerPassword">Password</label>
+            <input
+              id="registerPassword"
+              type="password"
+              name="password"
+              placeholder="Create a password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+            />
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">
+            Create account
+          </button>
+
+          <p class="auth-switch">
+            Already have an account?
+            <button id="showLogin" type="button">Sign in</button>
+          </p>
+        </form>
+
+        <p class="footer-note">
+          Please provide accurate information when submitting a report.
+        </p>
+      </div>
+    </main>
+  </section>
+
+  <!-- MAIN APPLICATION -->
+  <section id="appPanel" class="app-shell" hidden>
+    <aside class="sidebar">
+      <a class="brand" href="#dashboard" aria-label="CommunityCare dashboard">
+        <span class="brand-mark">C</span>
+        <span>
+          CommunityCare
+          <small>CCMS Portal</small>
+        </span>
+      </a>
+
+      <div class="nav-label">Workspace</div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+        <button
+          class="nav-link active"
+          type="button"
+          data-target="dashboard"
+        >
+          <span class="nav-icon">▦</span>
+          Dashboard
+        </button>
+
+        <button
+          class="nav-link"
+          type="button"
+          data-target="complaints"
+          data-role="admin,resident"
+        >
+          <span class="nav-icon">☷</span>
+          Complaints
+        </button>
+
+        <button
+          class="nav-link"
+          type="button"
+          data-target="submitPanel"
+          data-role="resident"
+        >
+          <span class="nav-icon">＋</span>
+          New Complaint
+        </button>
+
+        <button
+          class="nav-link"
+          type="button"
+          data-target="trackingSection"
+          data-role="resident"
+        >
+          <span class="nav-icon">⌖</span>
+          Track Complaints
+        </button>
+
+        <button
+          class="nav-link"
+          type="button"
+          data-target="activitySection"
+        >
+          <span class="nav-icon">◷</span>
+          Activity History
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="user-mini">
+          <strong id="sidebarUserName">CommunityCare User</strong>
+          <small id="session">Signed in</small>
+        </div>
+        <button
+          id="logoutBtn"
+          class="btn btn-secondary btn-block"
+          type="button"
+          style="margin-top:12px"
+        >
+          Sign out
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-heading">
+          <div class="eyebrow">CommunityCare portal</div>
+          <h1 id="welcomeTitle">Dashboard</h1>
+          <p class="muted">Manage and monitor community reports.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="refreshBtn" class="btn btn-secondary" type="button">
+            ↻ Refresh
+          </button>
+          <button
+            id="newComplaintBtn"
+            class="btn btn-primary"
+            type="button"
+            data-role="resident"
+          >
+            ＋ New complaint
+          </button>
+        </div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <section id="dashboard">
+        <div class="stats-grid">
+          <article class="stat-card" data-role="admin,resident">
+            <div class="stat-label">Open Complaints</div>
+            <div id="openCount" class="stat-value">0</div>
+            <div class="stat-caption">Awaiting resolution</div>
+          </article>
+
+          <article class="stat-card" data-role="admin,resident">
+            <div class="stat-label">In Progress</div>
+            <div id="progressCount" class="stat-value">0</div>
+            <div class="stat-caption">Being addressed</div>
+          </article>
+
+          <article class="stat-card" data-role="admin,resident">
+            <div class="stat-label">Resolved</div>
+            <div id="resolvedCount" class="stat-value">0</div>
+            <div class="stat-caption">Marked as resolved</div>
+          </article>
+
+          <article class="stat-card" data-role="admin,resident">
+            <div class="stat-label">Total Complaints</div>
+            <div id="totalCount" class="stat-value">0</div>
+            <div class="stat-caption">Reports in your view</div>
+          </article>
+        </div>
+
+        <section class="panel" data-role="resident">
+          <div class="panel-heading">
+            <div>
+              <h2>Submit a community complaint</h2>
+              <p>Provide the details and capture a photo as evidence.</p>
+            </div>
+          </div>
+
+          <div class="notice">
+            <strong>Before you submit:</strong> Allow camera and location access
+            when prompted. Your report must meet the system's location
+            verification requirements.
+          </div>
+        </section>
+
+        <section class="panel" data-role="admin">
+          <div class="panel-heading">
+            <div>
+              <h2>Administration overview</h2>
+              <p>Review reports, verify evidence, and update complaint statuses.</p>
+            </div>
+          </div>
+          <div class="notice">
+            Select a complaint below to review its details and available
+            administrative actions.
+          </div>
+        </section>
+      </section>
+
+      <!-- NEW COMPLAINT FORM -->
+      <section id="submitPanel" class="panel" data-role="resident">
+        <div class="panel-heading">
+          <div>
+            <h2>New complaint</h2>
+            <p>Complete all required fields before submitting your report.</p>
+          </div>
+        </div>
+
+        <form id="complaintForm" enctype="multipart/form-data">
+          <div class="form-grid">
+            <div class="field">
+              <label for="complaintTitle">Complaint title *</label>
+              <input
+                id="complaintTitle"
+                name="title"
+                type="text"
+                placeholder="Briefly describe the issue"
+                maxlength="150"
+                required
+              />
+            </div>
+
+            <div class="field">
+              <label for="complaintCategory">Category *</label>
+              <select id="complaintCategory" name="category" required>
+                <option value="">Select a category</option>
+                <option value="Road and Infrastructure">Road and Infrastructure</option>
+                <option value="Waste Management">Waste Management</option>
+                <option value="Water Supply">Water Supply</option>
+                <option value="Public Safety">Public Safety</option>
+                <option value="Noise Complaint">Noise Complaint</option>
+                <option value="Environmental Concern">Environmental Concern</option>
+                <option value="Public Property">Public Property</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="field span-2">
+              <label for="complaintLocation">Complaint location *</label>
+              <input
+                id="complaintLocation"
+                name="location"
+                type="text"
+                placeholder="Street, landmark, or specific location"
+                maxlength="300"
+                required
+              />
+              <small class="muted">
+                Enter the location where the incident occurred.
+              </small>
+            </div>
+
+            <div class="field span-2">
+              <label for="complaintDescription">Description *</label>
+              <textarea
+                id="complaintDescription"
+                name="description"
+                placeholder="Describe what happened, where it happened, and any details that may help."
+                maxlength="5000"
+                required
+              ></textarea>
+            </div>
+
+            <div class="field span-2">
+              <label>Photo evidence *</label>
+
+              <div class="camera-box">
+                <div class="camera-stage">
+                  <video
+                    id="evidenceCamera"
+                    autoplay
+                    playsinline
+                    muted
+                    hidden
+                    aria-label="Camera preview"
+                  ></video>
+
+                  <canvas id="evidenceCanvas" hidden></canvas>
+
+                  <img
+                    id="evidencePreview"
+                    alt="Captured complaint evidence preview"
+                    hidden
+                  />
+
+                  <div id="cameraPlaceholder" class="camera-placeholder">
+                    <div style="font-size:2rem;margin-bottom:8px">▣</div>
+                    <strong>Capture complaint evidence</strong>
+                    <p style="margin:6px 0 0">
+                      Start the camera, then capture a photo of the issue.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="camera-actions">
+                  <button
+                    id="startCameraBtn"
+                    class="btn btn-secondary"
+                    type="button"
+                  >
+                    Start camera
+                  </button>
+
+                  <button
+                    id="capturePhotoBtn"
+                    class="btn btn-primary"
+                    type="button"
+                    disabled
+                  >
+                    Capture photo
+                  </button>
+
+                  <button
+                    id="retakePhotoBtn"
+                    class="btn btn-secondary"
+                    type="button"
+                    hidden
+                  >
+                    Retake photo
+                  </button>
+                </div>
+
+                <p id="cameraMessage" aria-live="polite">
+                  Camera access is required to capture photo evidence.
+                </p>
+              </div>
+
+              <small class="muted">
+                Use a clear, relevant photo. The server accepts supported image
+                formats up to its configured upload limit.
+              </small>
+            </div>
+          </div>
+
+          <div class="notice" style="margin:16px 0">
+            Your browser may ask for location permission. Location and capture
+            time are submitted with the report for verification.
+          </div>
+
+          <button class="btn btn-primary btn-block" type="submit">
+            Submit complaint
+          </button>
+        </form>
+      </section>
+
+      <!-- COMPLAINTS / TRACKING -->
+      <section id="complaints" class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2 id="listTitle">Complaints</h2>
+            <p>Search reports and review their current status.</p>
+          </div>
+        </div>
+
+        <div id="trackingSection">
+          <div class="list-toolbar">
+            <input
+              id="complaintSearch"
+              type="search"
+              placeholder="Search by ticket, title, category, or location..."
+              aria-label="Search complaints"
+            />
+
+            <select id="statusFilter" aria-label="Filter by complaint status">
+              <option value="">All statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="Under Review">Under Review</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div id="complaintList" aria-live="polite">
+            <div class="empty-state">
+              <strong>Loading complaints...</strong>
+              <p>Your reports will appear here after they load.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVITY HISTORY -->
+      <section id="activitySection" class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Activity history</h2>
+            <p>Open a complaint's history to review its recorded status changes.</p>
+          </div>
+        </div>
+
+        <div class="notice">
+          Status history is displayed with each complaint when available.
+          Select a complaint and expand its activity-history section to review
+          recorded updates.
+        </div>
+      </section>
+
+      <footer class="footer-note">
+        CommunityCare CCMS · Community reporting and complaint tracking
+      </footer>
+    </main>
+  </section>
+
+  <!-- Single global message container used by app.js -->
+  <div id="message" role="status" aria-live="polite" hidden></div>
+
+  
+  <!-- Google SDK -->
+  <script src="https://accounts.google.com/gsi/client" defer></script>
+
+  <!-- Facebook SDK -->
+  <script
+    async
+    defer
+    crossorigin="anonymous"
+    src="https://connect.facebook.net/en_US/sdk.js"
+  ></script>
+
+  <!-- Socket.IO -->
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- Main application JavaScript -->
+  <script src="/app.js" defer></script>
+
+  <!-- Auth screen switching -->
+  <script>
+    (() => {
+      const loginForm = document.getElementById("loginForm");
+      const registerForm = document.getElementById("registerForm");
+
+      document.getElementById("showRegister")?.addEventListener("click", () => {
+        loginForm.hidden = true;
+        registerForm.hidden = false;
+      });
+
+      document.getElementById("showLogin")?.addEventListener("click", () => {
+        registerForm.hidden = true;
+        loginForm.hidden = false;
+      });
+
+      document.getElementById("forgotPasswordLink")?.addEventListener("click", () => {
+        alert(
+          "Password recovery is not connected yet. Please contact your system administrator."
+        );
+      });
+    })();
+  </script>
+</body>
+</html>
